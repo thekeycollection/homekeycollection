@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Room Key Questionnaire | The Key Collection by Jaime</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/img/logo.png">
+<meta property="og:title" content="The Key Collection by Jaime">
+<meta property="og:image" content="https://homekeycollection.com/img/share.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F1E9; --paper:#FBF8F3; --ink:#1F1D1A; --muted:#6B655C;
+    --brass:#A9844E; --brass-dk:#8A6A3B; --olive:#3E4636; --line:#E3DACB;
+    --serif:'Cormorant Garamond', Georgia, serif; --sans:'Jost', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  a{color:var(--brass-dk)}
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px;width:100%}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+
+  .bar{position:sticky;top:0;z-index:5;background:rgba(246,241,233,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:72px}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .logo img{height:52px;width:auto;display:block}
+  .logo small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .prog{flex:1;max-width:320px;height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+  .prog i{display:block;height:100%;background:var(--brass);width:0;transition:width .3s}
+
+  main{flex:1;padding:44px 0 56px}
+  .count{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass-dk);font-weight:500}
+  .title{font-family:var(--serif);font-size:clamp(30px,4.6vw,46px);line-height:1.1;margin:10px 0 8px}
+  .sub{color:var(--muted);font-size:16px;margin-bottom:26px;max-width:40em}
+  .sub2{font-family:var(--serif);font-size:clamp(24px,3.4vw,32px);margin:34px 0 14px}
+
+  .intro{text-align:center;max-width:620px;margin:4vh auto 0}
+  .intro h1{font-size:clamp(42px,6vw,66px);margin:14px 0 18px}
+  .intro p{color:var(--muted);font-size:18px;margin-bottom:12px}
+  .intro .btn{margin-top:22px}
+  .intro ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:22px 0 4px}
+  .intro li{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted)}
+
+  .opts{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+  .opts.one{grid-template-columns:1fr}
+  .opts.img{grid-template-columns:repeat(3,1fr)}
+  .opt{position:relative;text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:6px;padding:16px 18px 16px 48px;font:inherit;font-size:16px;color:var(--ink);cursor:pointer;transition:border-color .15s,box-shadow .15s;line-height:1.45;min-height:56px}
+  .opt::before{content:"";position:absolute;left:17px;top:19px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--brass)}
+  .opt.multi::before{border-radius:3px}
+  .opt:hover{border-color:var(--brass)}
+  .opt:focus-visible{outline:2px solid var(--olive);outline-offset:2px}
+  .opt.sel{border-color:var(--olive);box-shadow:0 0 0 1.5px var(--olive);background:#fff}
+  .opt.sel::before{background:var(--olive);border-color:var(--olive);box-shadow:inset 0 0 0 3px #fff}
+  .opt small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+  .opts.img .opt{padding:0;overflow:hidden;display:flex;flex-direction:column}
+  .opts.img .opt::before{left:auto;right:12px;top:12px;z-index:1;background:rgba(255,255,255,.85)}
+  .opts.img .opt.sel::before{background:var(--olive)}
+  .opt .ph{display:block;width:100%;aspect-ratio:4/3;background:#E4D9C8;overflow:hidden}
+  .opt .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .opt .cap{display:block;padding:12px 14px 14px;font-size:14px;color:var(--muted);line-height:1.45}
+  .opt .cap b{display:block;font-family:var(--serif);font-size:21px;font-weight:500;color:var(--ink);margin-bottom:2px}
+
+  label.f{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;font-weight:500}
+  label.f span.opt-tag{letter-spacing:.05em;text-transform:none;font-weight:300}
+  input[type=text],input[type=email],input[type=tel],textarea{display:block;width:100%;margin-top:8px;padding:14px 16px;border:1.5px solid var(--line);border-radius:6px;background:var(--paper);font:inherit;font-size:16px;font-weight:300;color:var(--ink);letter-spacing:0;text-transform:none}
+  textarea{min-height:130px;resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:var(--olive);background:#fff}
+
+  .tips{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px 22px;margin-bottom:22px}
+  .tips b{font-family:var(--serif);font-size:20px;font-weight:500;display:block;margin-bottom:6px}
+  .tips ul{padding-left:20px;color:var(--muted);font-size:15.5px}
+  .tips li{margin:3px 0}
+  .drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1.5px dashed var(--brass);border-radius:8px;background:var(--paper);padding:34px 20px;text-align:center;cursor:pointer;color:var(--muted)}
+  .drop:hover,.drop.over{background:#fff;border-color:var(--olive)}
+  .drop strong{color:var(--ink);font-weight:500}
+  .drop input{position:absolute;width:1px;height:1px;opacity:0}
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:16px}
+  .thumb{position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;background:#E4D9C8}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb button{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(31,29,26,.75);color:#fff;font-size:16px;line-height:28px;cursor:pointer}
+  .thumb .busy{position:absolute;inset:0;background:rgba(251,248,243,.7);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted)}
+  .pcount{font-size:14px;color:var(--muted);margin-top:10px}
+
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font-family:var(--sans);font-size:14px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:1px solid var(--ink);transition:all .2s;min-height:48px}
+  .btn-dark{background:var(--ink);color:var(--cream)} .btn-dark:hover{background:var(--olive);border-color:var(--olive)}
+  .btn-line{background:transparent;color:var(--ink)} .btn-line:hover{background:var(--ink);color:var(--cream)}
+  .btn[disabled]{opacity:.35;pointer-events:none}
+  .err{color:#9B3B2E;font-size:14.5px;min-height:22px;margin-top:12px}
+
+  .sending{text-align:center;max-width:520px;margin:8vh auto 0}
+  .sending .bar2{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin:26px 0 12px}
+  .sending .bar2 i{display:block;height:100%;background:var(--brass);width:0;transition:width .3s}
+  .done{text-align:center;max-width:600px;margin:6vh auto 0}
+  .done h1{font-size:clamp(40px,6vw,62px);margin:14px 0 16px}
+  .done p{color:var(--muted);font-size:18px;margin-bottom:12px}
+
+  footer{border-top:1px solid var(--line);padding:22px 0;font-size:13px;color:var(--muted);text-align:center}
+  @media (max-width:720px){
+    .opts,.opts.img{grid-template-columns:1fr}
+    .bar .wrap{height:64px}.logo img{height:44px}.logo small{display:none}
+    main{padding-top:30px}
+    .nav .btn{flex:1}
+  }
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap">
+  <a class="logo" href="/"><img src="/img/logo.png" alt="The Key Collection"><small>by Jaime</small></a>
+  <div class="prog" aria-hidden="true"><i id="prog"></i></div>
+</div></div>
+<main><div class="wrap" id="app" aria-live="polite"></div></main>
+<footer>The Key Collection by Jaime · Your answers and photos go only to Jaime.</footer>
+
+<script>
+(function(){
+  /* ============ SETTINGS ============ */
+  // Paste the Google Apps Script web-app URL for Room Key submissions here.
+  const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzsXJFIyuGdvFc8TyXBYWO1rvFw5-OYxUpEhcxauZXVFyA_FVZ_3yQ9vIkrUibVmJQM/exec";
+  const MAX_PHOTOS = 20;          // most photos one client can upload
+  const PHOTO_MAX_SIDE = 1800;    // photos are resized to this many pixels on the long side before upload
+
+  /* ============ QUESTIONS (copied from the DesignFiles Room Key questionnaire) ============ */
+  const STYLE_OPTS = [
+    ["modern-classic","Modern Classic","Classic proportions, tailored details, refined wood, marble, and softly polished metals"],
+    ["industrial-luxe","Industrial Luxe","Strong forms, dramatic contrast, concrete, dark metals, smoked glass, and substantial furniture"],
+    ["modern-rustic","Modern Rustic","Weathered wood, textured stone, and relaxed fabrics with simple, modern shapes"],
+    ["organic-modern","Organic Modern","Gentle light, soft curves, pale wood, plaster, linen, and quiet tonal layers"],
+    ["timeless-contemporary","Timeless Contemporary","Clean lines, refined materials, and restrained contrast with warmth and balance"],
+    ["western-chic","Western Chic","Leather, aged wood, patterned wool, and rich layers with refined Western character"]
+  ];
+  const STEPS = [
+    {id:"contact", title:"First, who are we designing for?", sub:"Use the same email you used at checkout so Jaime can match your Room Key.", type:"contact"},
+    {id:"why", title:"Why are you redesigning your space?", sub:"Select all that apply.", type:"multi",
+      options:["Moving into a new home","Moving in together","Construction / extension to house","Furnishing / decorating a rental property","New baby","Time for a refresh"]},
+    {id:"finished", title:"How finished is your space?", type:"single", one:true,
+      options:[["Starting from scratch","I'm designing the whole room"],["Somewhere in between","I'm designing around a few existing pieces"],["Mostly furnished","I'm putting the finishing touches on a room"]]},
+    {id:"staying", title:"What's staying?", sub:"List any furniture or decor you're keeping in the room.", type:"text",
+      extra:{id:"new_products", title:"What new products would you like to add to the space?", placeholder:"Enter new products..."}},
+    {id:"style", title:"What's your Style Key result?", type:"style",
+      sub:"Choose the style your Style Key quiz gave you. Haven't taken it yet? <a href=\"/\" target=\"_blank\" rel=\"noopener\">Take it free here</a>, then come back."},
+    {id:"photos", title:"Upload photos of your room", type:"photos", required:true},
+    {id:"measurements", title:"Enter your room measurements", type:"text", required:true,
+      sub:"List each wall (corner to corner), each window and door (width, height, distance from the nearest corner), ceiling height, and any furniture you are keeping. Rounding to the nearest inch is fine. <a href=\"/#measure\" target=\"_blank\" rel=\"noopener\">Open the measuring guide</a>.",
+      placeholder:"Example: North wall 12' 4\" corner to corner. Window 36\" wide x 60\" tall, 24\" from left corner…"},
+    {id:"colors", title:"What are your color preferences?", type:"single", one:true,
+      options:[["Warm neutrals","White, cream, beige, brown, brass"],["Cool neutrals","White, grey, black, chrome"],["Soft, serene colors",""],["Bright, bold colors",""],["Neutral palette with a few pops of color",""],["I'm not sure",""]],
+      extra:{id:"specific_colors", title:"Do you have any specific colors you'd like to see in the space?", placeholder:"Enter color preferences..."}},
+    {id:"share", title:"Who do you share your space with?", sub:"Select all that apply.", type:"multi",
+      options:["Partner","Kids","Parents/In-laws","Roommates","Pets","Other"]},
+    {id:"home", title:"Do you rent or own?", type:"home"},
+    {id:"notes", title:"Any final notes for your designer to consider?", type:"text",
+      sub:"Include any final notes or other details that may not have been addressed in the questions above.", placeholder:"Anything else Jaime should know…"}
+  ];
+
+  /* ============ STATE ============ */
+  const S = { step:-1, a:{}, photos:[] };   // photos: {id, file, url, data(base64), w, h}
+  const sid = "RK" + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+  const app = document.getElementById('app'), prog = document.getElementById('prog');
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  function setProg(){ prog.style.width = S.step<0 ? "0%" : Math.round((S.step+1)/(STEPS.length+1)*100) + "%"; }
+  function top(){ window.scrollTo({top:0,behavior:"smooth"}); }
+
+  function render(){
+    setProg();
+    if(S.step<0) return renderIntro();
+    if(S.step>=STEPS.length) return;
+    const st = STEPS[S.step];
+    let h = `<div class="count">Step ${S.step+1} of ${STEPS.length}</div><h2 class="title">${esc(st.title)}</h2>`;
+    if(st.sub) h += `<p class="sub">${st.sub}</p>`;
+    h += body(st);
+    h += `<div class="err" id="err"></div>
+      <div class="nav">
+        <button class="btn btn-line" id="back">Back</button>
+        <button class="btn btn-dark" id="next">${S.step===STEPS.length-1 ? "Send to Jaime" : "Next"}</button>
+      </div>`;
+    app.innerHTML = h;
+    wire(st);
+    document.getElementById('back').onclick = () => { save(st); S.step--; render(); top(); };
+    document.getElementById('next').onclick = () => {
+      save(st);
+      const e = check(st);
+      if(e){ document.getElementById('err').textContent = e; return; }
+      if(S.step===STEPS.length-1) return submit();
+      S.step++; render(); top();
+    };
+  }
+
+  function renderIntro(){
+    app.innerHTML = `<div class="intro">
+      <div class="count">Your Room Key</div>
+      <h1>Let's make your room match your style.</h1>
+      <p>You found your style. Now let's bring it home. This takes about 10 minutes.</p>
+      <p>Grab your Style Key result, a tape measure, and your phone for photos. The more you share, the better Jaime can design a room that actually fits your life (and your stuff).</p>
+      <ul><li>11 short steps</li><li>Room photos</li><li>Measurements</li></ul>
+      <button class="btn btn-dark" id="start">Unlock My Room</button>
+    </div>`;
+    document.getElementById('start').onclick = () => { S.step=0; render(); top(); };
+  }
+
+  function optBtn(val, label, small, sel, multi){
+    return `<button type="button" class="opt${multi?' multi':''}${sel?' sel':''}" data-v="${esc(val)}" aria-pressed="${sel}">${esc(label)}${small?`<small>${esc(small)}</small>`:''}</button>`;
+  }
+  function extraField(x){
+    return `<h3 class="sub2">${esc(x.title)}</h3><textarea id="${x.id}" placeholder="${esc(x.placeholder||'')}">${esc(S.a[x.id]||'')}</textarea>`;
+  }
+
+  function body(st){
+    const v = S.a[st.id];
+    switch(st.type){
+      case "contact": {
+        const c = v || {};
+        return `<label class="f">Full name<input type="text" id="c_name" autocomplete="name" value="${esc(c.name||'')}"></label>
+          <label class="f">Email<input type="email" id="c_email" autocomplete="email" inputmode="email" value="${esc(c.email||'')}"></label>
+          <label class="f">Phone <span class="opt-tag">(optional)</span><input type="tel" id="c_phone" autocomplete="tel" inputmode="tel" value="${esc(c.phone||'')}"></label>`;
+      }
+      case "multi":
+        return `<div class="opts">${st.options.map(o=>optBtn(o,o,"",(v||[]).includes(o),true)).join('')}</div>`;
+      case "single": {
+        let h = `<div class="opts${st.one?' one':''}">${st.options.map(o=>{const [l,s]=Array.isArray(o)?o:[o,""]; return optBtn(l,l,s,v===l,false);}).join('')}</div>`;
+        if(st.extra) h += extraField(st.extra);
+        return h;
+      }
+      case "style":
+        return `<div class="opts img">${STYLE_OPTS.map(([slug,name,desc])=>`<button type="button" class="opt${v===name?' sel':''}" data-v="${esc(name)}" aria-pressed="${v===name}">
+          <span class="ph"><img src="/img/q01-living-rooms/${slug}.jpg" alt="" loading="lazy"></span>
+          <span class="cap"><b>${esc(name)}</b>${esc(desc)}</span></button>`).join('')}</div>`;
+      case "text": {
+        let h = `<textarea id="t_${st.id}" placeholder="${esc(st.placeholder||'')}">${esc(v||'')}</textarea>`;
+        if(st.extra) h += extraField(st.extra);
+        return h;
+      }
+      case "home": {
+        const r = S.a.rent_own, k = S.a.home_type;
+        return `<div class="opts">${["Rent","Own"].map(o=>optBtn(o,o,"",r===o,false)).join('')}</div>
+          <h3 class="sub2">What kind of home do you live in?</h3>
+          <div class="opts" id="hometype">${["House","Townhouse","Condo or Apartment"].map(o=>optBtn(o,o,"",k===o,false)).join('')}</div>`;
+      }
+      case "photos":
+        return `<div class="tips"><b>How to take your photos</b><ul>
+            <li>Take one photo of each wall, plus one from each corner.</li>
+            <li>Shoot during the day with the lights on and curtains open.</li>
+            <li>Hold your phone sideways and stand as far back as you can.</li>
+            <li>No filters, please. Aim for at least 8 photos.</li></ul></div>
+          <label class="drop" id="drop">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+            <strong>Tap to add photos</strong><span>or drag them here · up to ${MAX_PHOTOS}</span>
+            <input type="file" id="pfile" accept="image/*" multiple>
+          </label>
+          <div class="thumbs" id="thumbs"></div><div class="pcount" id="pcount"></div>`;
+    }
+    return "";
+  }
+
+  function wire(st){
+    if(st.type==="multi"){
+      app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+        const arr = S.a[st.id] || (S.a[st.id]=[]); const val=b.dataset.v; const i=arr.indexOf(val);
+        if(i>=0) arr.splice(i,1); else arr.push(val);
+        b.classList.toggle('sel', i<0); b.setAttribute('aria-pressed', i<0);
+      });
+    }
+    if(st.type==="single" || st.type==="style"){
+      const box = app.querySelector('.opts');
+      box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+        S.a[st.id]=b.dataset.v;
+        box.querySelectorAll('.opt').forEach(x=>{x.classList.toggle('sel',x===b); x.setAttribute('aria-pressed',x===b);});
+      });
+    }
+    if(st.type==="home"){
+      const [g1,g2] = app.querySelectorAll('.opts');
+      [[g1,'rent_own'],[g2,'home_type']].forEach(([g,key])=>g.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+        S.a[key]=b.dataset.v; g.querySelectorAll('.opt').forEach(x=>{x.classList.toggle('sel',x===b); x.setAttribute('aria-pressed',x===b);});
+      }));
+    }
+    if(st.type==="photos"){
+      const inp=document.getElementById('pfile'), drop=document.getElementById('drop');
+      inp.onchange=()=>{ addFiles(inp.files); inp.value=""; };
+      drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over');});
+      drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+      drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');addFiles(e.dataTransfer.files);});
+      drawThumbs();
+    }
+  }
+
+  function save(st){
+    if(st.type==="contact") S.a.contact={name:val('c_name'),email:val('c_email'),phone:val('c_phone')};
+    if(st.type==="text") S.a[st.id]=val('t_'+st.id);
+    if(st.extra) S.a[st.extra.id]=val(st.extra.id);
+  }
+  function val(id){ const e=document.getElementById(id); return e?e.value.trim():""; }
+
+  function check(st){
+    if(st.type==="contact"){
+      const c=S.a.contact;
+      if(!c.name) return "Please enter your name.";
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c.email)) return "Please enter a valid email address.";
+    }
+    if(st.type==="photos"){
+      if(!S.photos.length) return "Please add at least one photo of your room.";
+      if(S.photos.some(p=>!p.data)) return "One moment, your photos are still getting ready.";
+    }
+    if(st.required && st.type==="text" && !S.a[st.id]) return "This one is required. Rough measurements are fine.";
+    return "";
+  }
+
+  /* ============ PHOTOS: resize in the browser so uploads are quick ============ */
+  function addFiles(list){
+    const files=[...list].filter(f=>/^image\//.test(f.type) || /\.(heic|heif)$/i.test(f.name));
+    const room=MAX_PHOTOS-S.photos.length;
+    if(files.length>room){ document.getElementById('err').textContent=`You can add up to ${MAX_PHOTOS} photos.`; }
+    files.slice(0,Math.max(room,0)).forEach(f=>{
+      const p={id:Math.random().toString(36).slice(2), file:f, url:"", data:null};
+      S.photos.push(p); prep(p);
+    });
+    drawThumbs();
+  }
+  function prep(p){
+    const img=new Image(), src=URL.createObjectURL(p.file);
+    img.onload=()=>{
+      const k=Math.min(1, PHOTO_MAX_SIDE/Math.max(img.naturalWidth,img.naturalHeight));
+      const c=document.createElement('canvas'); c.width=Math.round(img.naturalWidth*k); c.height=Math.round(img.naturalHeight*k);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      const d=c.toDataURL('image/jpeg',0.82); p.data=d.split(',')[1]; p.url=d; URL.revokeObjectURL(src); drawThumbs();
+    };
+    img.onerror=()=>{ URL.revokeObjectURL(src); S.photos=S.photos.filter(x=>x!==p); drawThumbs();
+      const e=document.getElementById('err'); if(e) e.textContent="One photo couldn't be read. Try a JPG or PNG, or change your camera setting to “Most Compatible.”"; };
+    img.src=src;
+  }
+  function drawThumbs(){
+    const t=document.getElementById('thumbs'); if(!t) return;
+    t.innerHTML=S.photos.map(p=>`<div class="thumb">${p.url?`<img src="${p.url}" alt="Room photo">`:'<div class="busy">Preparing…</div>'}<button type="button" data-id="${p.id}" aria-label="Remove photo">×</button></div>`).join('');
+    t.querySelectorAll('button').forEach(b=>b.onclick=()=>{S.photos=S.photos.filter(x=>x.id!==b.dataset.id);drawThumbs();});
+    const n=S.photos.length; document.getElementById('pcount').textContent = n ? `${n} photo${n>1?'s':''} added${n<8?' · aim for at least 8':''}` : "";
+  }
+
+  /* ============ SUBMIT: photos one at a time, then answers ============ */
+  async function post(obj){
+    let last;
+    for(let tries=0; tries<3; tries++){
+      try{
+        const r = await fetch(SUBMIT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)});
+        const j = await r.json();
+        if(j && j.ok) return j;
+        last = new Error(j && j.error || "Upload failed");
+      }catch(e){ last=e; }
+      await new Promise(res=>setTimeout(res,1200*(tries+1)));
+    }
+    throw last;
+  }
+  async function submit(){
+    const c=S.a.contact, total=S.photos.length+1;
+    app.innerHTML=`<div class="sending"><div class="count">Sending</div><h2 class="title">Sending your room to Jaime…</h2>
+      <p class="sub" id="stat">Uploading photo 1 of ${S.photos.length}</p><div class="bar2"><i id="sb"></i></div>
+      <p class="sub">Please keep this page open.</p></div>`;
+    const stat=document.getElementById('stat'), sb=document.getElementById('sb');
+    if(!SUBMIT_URL){ stat.textContent="Preview mode: submissions aren't connected yet."; return; }
+    try{
+      for(let i=0;i<S.photos.length;i++){
+        stat.textContent=`Uploading photo ${i+1} of ${S.photos.length}`;
+        await post({type:"photo", sid, name:c.name, email:c.email, index:i+1, b64:S.photos[i].data});
+        sb.style.width=Math.round((i+1)/total*100)+"%";
+      }
+      stat.textContent="Sending your answers";
+      const ans={};
+      STEPS.forEach(st=>{
+        if(st.type==="contact"||st.type==="photos") return;
+        if(st.type==="home"){ ans["Do you rent or own?"]=S.a.rent_own||""; ans["What kind of home do you live in?"]=S.a.home_type||""; return; }
+        const v=S.a[st.id]; ans[st.title]=Array.isArray(v)?v.join(", "):(v||"");
+        if(st.extra) ans[st.extra.title]=S.a[st.extra.id]||"";
+      });
+      await post({type:"submit", sid, name:c.name, email:c.email, phone:c.phone, photos:S.photos.length, answers:ans});
+      sb.style.width="100%";
+      prog.style.width="100%";
+      app.innerHTML=`<div class="done"><div class="count">All set</div><h1>Thank you, ${esc(c.name.split(' ')[0])}!</h1>
+        <p>Jaime has your photos, measurements and answers. You'll get your redesigned room by email at <b>${esc(c.email)}</b>.</p>
+        <p>Questions in the meantime? Just reply to that email.</p>
+        <a class="btn btn-line" href="/" style="margin-top:20px">Back to The Key Collection</a></div>`;
+    }catch(e){
+      stat.innerHTML="Something went wrong while sending. Please check your connection and try again.";
+      const b=document.createElement('button'); b.className="btn btn-dark"; b.textContent="Try again"; b.style.marginTop="18px";
+      b.onclick=submit; stat.parentNode.appendChild(b);
+    }
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
