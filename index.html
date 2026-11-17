@@ -239,6 +239,8 @@
   .qgate input[type=text]:focus,.qgate input[type=email]:focus{outline:none;border-color:var(--olive);background:#fff}
   .qgate .chk{display:flex;gap:10px;align-items:center;text-transform:none;letter-spacing:0;font-size:15px;font-weight:300;color:var(--ink);cursor:pointer}
   .qgate .chk input{width:18px;height:18px;accent-color:var(--olive)}
+  .qgate .chk.agree{align-items:flex-start;font-size:13.5px;line-height:1.5;color:var(--muted)}
+  .qgate .chk.agree input{flex:none;margin-top:2px}
   .qerr{color:#9B3B2E;font-size:14px;min-height:20px}
   .qgate .fine{font-size:13px;margin:18px 0 0}
   /* ===== In-page style guide viewer ===== */
@@ -786,17 +788,19 @@
         <label>First name<input type="text" id="qname" autocomplete="given-name" required></label>
         <label>Email<input type="email" id="qemail" autocomplete="email" inputmode="email" required></label>
         <label class="chk"><input type="checkbox" id="qopt" checked> Send me design tips and offers from Jaime</label>
+        <label class="chk agree"><input type="checkbox" id="qagree"> <span>I understand my Style Key and style guide are design inspiration only. I'm responsible for confirming product dimensions and fit before purchasing, and The Key Collection is not responsible for fit, shipping damage, or retailer issues. I agree to the <a href="/terms/" target="_blank" rel="noopener">Terms &amp; Design Disclaimer</a>.</span></label>
         <div class="qerr" id="qerr" role="alert"></div>
         <div class="qnav"><button type="button" class="btn btn-line" id="qback">Back</button>
           <button type="submit" class="btn btn-dark">See my result</button></div>
       </form>
-      <p class="fine">Your email stays with Jaime. We never share or sell it. By continuing, you agree to our <a href="/terms/" target="_blank" rel="noopener">Terms &amp; Design Disclaimer</a>.</p></div>`;
+      <p class="fine">Your email stays with Jaime. We never share or sell it.</p></div>`;
     document.getElementById('qback').onclick=()=>{qs.step=backTo;render();};
     document.getElementById('qform').onsubmit=e=>{
       e.preventDefault();
       const name=document.getElementById('qname').value.trim(), email=document.getElementById('qemail').value.trim(), err=document.getElementById('qerr');
       if(!name){ err.textContent="Please add your first name."; return; }
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ err.textContent="Please enter a valid email address."; return; }
+      if(!document.getElementById('qagree').checked){ err.textContent="Please check the box to agree to the Terms & Design Disclaimer."; return; }
       qs.lead={name, email, optin:document.getElementById('qopt').checked};
       sendLead(); qs.step=13; render();
     };
