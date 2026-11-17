@@ -99,6 +99,8 @@
   .done p{color:var(--muted);font-size:18px;margin-bottom:12px}
 
   footer{border-top:1px solid var(--line);padding:22px 0;font-size:13px;color:var(--muted);text-align:center}
+  .agree{display:flex;gap:12px;align-items:flex-start;margin-top:26px;padding:16px 18px;background:var(--paper);border:1px solid var(--line);border-radius:8px;font-size:14px;line-height:1.55;color:var(--muted);cursor:pointer}
+  .agree input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:var(--olive)}
   @media (max-width:720px){
     .opts,.opts.img{grid-template-columns:1fr}
     .bar .wrap{height:64px}.logo img{height:44px}.logo small{display:none}
@@ -113,7 +115,7 @@
   <div class="prog" aria-hidden="true"><i id="prog"></i></div>
 </div></div>
 <main><div class="wrap" id="app" aria-live="polite"></div></main>
-<footer>The Key Collection by Jaime · Your answers and photos go only to Jaime.</footer>
+<footer>The Key Collection by Jaime · Your answers and photos go only to Jaime. · <a href="/terms/" target="_blank" rel="noopener">Terms &amp; Disclaimer</a></footer>
 
 <script>
 (function(){
@@ -173,6 +175,8 @@
     let h = `<div class="count">Step ${S.step+1} of ${STEPS.length}</div><h2 class="title">${esc(st.title)}</h2>`;
     if(st.sub) h += `<p class="sub">${st.sub}</p>`;
     h += body(st);
+    if(S.step===STEPS.length-1) h += `<label class="agree"><input type="checkbox" id="agree"${S.agreed?' checked':''}>
+      <span>I understand that my Room Key is an artistic representation based on the photos and measurements I provided. I am responsible for confirming product dimensions and fit before purchasing, and The Key Collection is not responsible for fit, shipping damage, or retailer issues. I agree to the <a href="/terms/" target="_blank" rel="noopener">Terms &amp; Design Disclaimer</a>.</span></label>`;
     h += `<div class="err" id="err"></div>
       <div class="nav">
         <button class="btn btn-line" id="back">Back</button>
@@ -185,6 +189,10 @@
       save(st);
       const e = check(st);
       if(e){ document.getElementById('err').textContent = e; return; }
+      if(S.step===STEPS.length-1){
+        S.agreed = document.getElementById('agree').checked;
+        if(!S.agreed){ document.getElementById('err').textContent = "Please check the box to agree to the Terms & Design Disclaimer."; return; }
+      }
       if(S.step===STEPS.length-1) return submit();
       S.step++; render(); top();
     };
@@ -373,6 +381,7 @@
         const v=S.a[st.id]; ans[st.title]=Array.isArray(v)?v.join(", "):(v||"");
         if(st.extra) ans[st.extra.title]=S.a[st.extra.id]||"";
       });
+      ans["Agreed to Terms & Design Disclaimer"]="Yes, "+new Date().toISOString();
       await post({type:"submit", sid, name:c.name, email:c.email, phone:c.phone, photos:S.photos.length, answers:ans});
       sb.style.width="100%";
       prog.style.width="100%";
