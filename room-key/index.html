@@ -122,6 +122,11 @@
   /* ============ SETTINGS ============ */
   // Paste the Google Apps Script web-app URL for Room Key submissions here.
   const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzsXJFIyuGdvFc8TyXBYWO1rvFw5-OYxUpEhcxauZXVFyA_FVZ_3yQ9vIkrUibVmJQM/exec";
+  const PAY_URL = "https://27c17f90-0795-491f-ae12-135f191bec25.paylinks.godaddy.com/7c22aa2e-be83-440e-b19a-b5d";   // GoDaddy Pay Link ($79 Room Key)
+  // Access: the questionnaire only opens with the private link from the payment receipt (…/room-key?k=CODE).
+  // The code itself is checked by the Google Apps Script, so it never appears in this file.
+  let KEY = new URLSearchParams(location.search).get("k") || "";
+  try { if(KEY) sessionStorage.setItem("rk_key", KEY); else KEY = sessionStorage.getItem("rk_key") || ""; } catch(e){}
   const MAX_PHOTOS = 20;          // most photos one client can upload
   const PHOTO_MAX_SIDE = 1800;    // photos are resized to this many pixels on the long side before upload
 
@@ -351,9 +356,10 @@
     let last;
     for(let tries=0; tries<3; tries++){
       try{
-        const r = await fetch(SUBMIT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)});
+        const r = await fetch(SUBMIT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(Object.assign({code:KEY},obj))});
         const j = await r.json();
         if(j && j.ok) return j;
+        if(j && j.error==="locked"){ renderLocked(true); throw new Error("locked"); }
         last = new Error(j && j.error || "Upload failed");
       }catch(e){ last=e; }
       await new Promise(res=>setTimeout(res,1200*(tries+1)));
@@ -396,7 +402,33 @@
     }
   }
 
-  render();
+  function renderLocked(bad){
+    prog.style.width="0%";
+    app.innerHTML = `<div class="intro">
+      <div class="count">Your Room Key</div>
+      <h1>${bad ? "This link isn't active." : "This questionnaire unlocks after purchase."}</h1>
+      <p>${bad ? "Please use the private link from your Room Key payment receipt, exactly as it was sent." : "Once you buy your Room Key, your receipt email will include a private link to this questionnaire."}</p>
+      <p>Already paid and can't find it? Check your spam folder for the receipt, or email <a href="mailto:design@homekeycollection.com">design@homekeycollection.com</a>.</p>
+      <a class="btn btn-dark" href="${PAY_URL}">Get your Room Key · $79</a>
+    </div>`;
+  }
+
+  async function start(){
+    if(!KEY || !SUBMIT_URL) return renderLocked(false);
+    app.innerHTML = `<div class="intro"><div class="count">Your Room Key</div><p>Unlocking your questionnaire…</p></div>`;
+    try{
+      const r = await fetch(SUBMIT_URL + "?check=" + encodeURIComponent(KEY));
+      const j = await r.json();
+      if(j && j.valid) return render();
+    }catch(e){
+      app.innerHTML = `<div class="intro"><div class="count">Your Room Key</div><h1>We couldn't open the questionnaire.</h1><p>Please check your connection and refresh this page.</p></div>`;
+      return;
+    }
+    try{ sessionStorage.removeItem("rk_key"); }catch(e){}
+    renderLocked(true);
+  }
+
+  start();
 })();
 </script>
 </body>
