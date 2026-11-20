@@ -123,7 +123,7 @@
   // Paste the Google Apps Script web-app URL for Room Key submissions here.
   const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzsXJFIyuGdvFc8TyXBYWO1rvFw5-OYxUpEhcxauZXVFyA_FVZ_3yQ9vIkrUibVmJQM/exec";
   const PAY_URL = "https://27c17f90-0795-491f-ae12-135f191bec25.paylinks.godaddy.com/7c22aa2e-be83-440e-b19a-b5d";   // GoDaddy Pay Link ($79 Room Key)
-  // Access: the questionnaire only opens with the private link from the payment receipt (…/room-key?k=CODE).
+  // Access: the questionnaire only opens with the private link Jaime emails each buyer (…/room-key?k=CODE).
   // The code itself is checked by the Google Apps Script, so it never appears in this file.
   let KEY = new URLSearchParams(location.search).get("k") || "";
   try { if(KEY) sessionStorage.setItem("rk_key", KEY); else KEY = sessionStorage.getItem("rk_key") || ""; } catch(e){}
@@ -407,8 +407,8 @@
     app.innerHTML = `<div class="intro">
       <div class="count">Your Room Key</div>
       <h1>${bad ? "This link isn't active." : "This questionnaire unlocks after purchase."}</h1>
-      <p>${bad ? "Please use the private link from your Room Key payment receipt, exactly as it was sent." : "Once you buy your Room Key, your receipt email will include a private link to this questionnaire."}</p>
-      <p>Already paid and can't find it? Check your spam folder for the receipt, or email <a href="mailto:design@homekeycollection.com">design@homekeycollection.com</a>.</p>
+      <p>${bad ? "Please use the private link Jaime emailed you after your purchase, exactly as it was sent." : "Once you buy your Room Key, Jaime will email you a private link to this questionnaire within 24 hours."}</p>
+      <p>Already paid and can't find it? Check your spam folder for an email from design@homekeycollection.com, or email <a href="mailto:design@homekeycollection.com">design@homekeycollection.com</a>.</p>
       <a class="btn btn-dark" href="${PAY_URL}">Get your Room Key · $79</a>
     </div>`;
   }
